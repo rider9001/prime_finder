@@ -8,7 +8,7 @@
 #include <time.h>
 #include <chrono>
 
-#include "inc/prime_finders_c.h"
+#include "inc/prime_finders.h"
 
 using std::cout;
 using std::endl;
@@ -37,13 +37,29 @@ public:
 
 int main()
 {
-    const size_t primes_lim = 1e5;
+    const size_t primes_lim = 1e6;
     Timer t;
+    size_t res;
 
+    cout << "--------------------" << endl;
     cout << "Naive approach: ";
     t.reset();
-    cout << find_primes_naive(primes_lim) << " primes below " << primes_lim << endl;
+    res = find_primes_naive(primes_lim);
+    cout << res << " primes below " << primes_lim << endl;
+    cout << t.elapsed() * 1e6 << " micros" << endl;
 
+    cout << "--------------------" << endl;
+    cout << "Naive odds only approach: ";
+    t.reset();
+    res = find_primes_naive_odds(primes_lim);
+    cout << res << " primes below " << primes_lim << endl;
+    cout << t.elapsed() * 1e6 << " micros" << endl;
+
+    cout << "--------------------" << endl;
+    cout << "Sieve of Eratosthenes: ";
+    t.reset();
+    res = sieve_of_eratosthenes(primes_lim);
+    cout << res << " primes below " << primes_lim << endl;
     cout << t.elapsed() * 1e6 << " micros" << endl;
 
     return EXIT_SUCCESS;
